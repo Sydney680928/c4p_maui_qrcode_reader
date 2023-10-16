@@ -1,41 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="C4P_QRCodeReader_MAUI.MainPage">
+             xmlns:camera="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             x:Class="C4P_QRCodeReader_MAUI.MainPage"
+             Loaded="ContentPage_Loaded"
+             Unloaded="ContentPage_Unloaded">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid RowDefinitions="Auto,*">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        <Grid ColumnDefinitions="Auto,*" Margin="10" Grid.Row="0">
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <Image x:Name="LogoC4PImage" Source="mobile_code_medium.png" Grid.Column="0" WidthRequest="100" HeightRequest="100" VerticalOptions="Center" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label Text="CODING 4 PHONE" FontSize="Large" FontAttributes="Bold" />
+                <Label Text="QR Code reader exemple" FontSize="Medium" />
+            </VerticalStackLayout>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer x:Name="LogoTapGesture" Tapped="LogoTapGesture_Tapped" />
+            </Grid.GestureRecognizers>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        </Grid>
 
+        <Grid RowDefinitions="300,Auto,*" Grid.Row="1">
+
+            <camera:CameraView 
+                x:Name="CameraView" 
+                Grid.Row="0"
+                Loaded="CameraView_Loaded" 
+                BarcodeDetected="CameraView_BarcodeDetected" 
+                HeightRequest="250" 
+                WidthRequest="250" 
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                ZoomFactor="{Binding Source={x:Reference ZoomSlider}, Path=Value}">
+
+                <camera:CameraView.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="CameraViewTapGesture" Tapped="CameraViewTapGesture_Tapped" />
+                </camera:CameraView.GestureRecognizers>
+
+            </camera:CameraView>
+
+            <Grid ColumnDefinitions="Auto,*" Margin="10" Grid.Row="1">
+
+                <Path x:Name="TorchPath" Grid.Column="0" Aspect="Uniform" Fill="LightGray" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" HorizontalOptions="Center" InputTransparent="False" Data="M8.9300046,14.910744L6.6080093,17.167856 7.4152679,18.031107 9.723815,15.709589z M16.370006,11.862051L12.543866,15.709646 12.544997,15.710784 7.3950081,20.890037 7.3936853,20.888706 2.8200006,25.488039 6.6460028,29.335035 20.196008,15.710047 18.586429,14.091216 17.156808,12.653998 17.144955,12.641454z M19.361855,2.8360476L18.574826,3.6280365C16.552066,5.662379,16.488855,8.9317892,18.385193,11.043323L18.565405,11.234002 19.798096,12.47374 20.818875,13.499943C21.828898,14.515929 23.170896,15.075008 24.597917,15.075008 26.024938,15.075008 27.366966,14.515929 28.376959,13.499943L29.171983,12.700995z M19.361855,0L31.992028,12.700995 29.794977,14.90997C28.406959,16.305959 26.560956,17.075001 24.597917,17.075001 23.73866,17.075001 22.902178,16.927801 22.116778,16.645302L22.094512,16.636665 6.6460028,32.171034 0,25.488039 5.9838905,19.470527 5.1900129,18.671928C4.3900146,17.867889,4.3900146,16.560825,5.1900129,15.757787L7.4340081,13.500676C8.2110062,12.719638,9.5710034,12.719638,10.348001,13.500676L11.134057,14.291423 15.449387,9.9518459 15.421749,9.8780458C14.522089,7.2855957,15.100442,4.2858093,17.156808,2.218008z" >
+                    <Path.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TorchTapGesture" Tapped="TorchTapGesture_Tapped" />
+                    </Path.GestureRecognizers>
+                </Path>
+
+                <Slider x:Name="ZoomSlider" Grid.Column="1" VerticalOptions="Center" Margin="10,0,0,0" Minimum="1" Maximum="5" />
+
+            </Grid>
+
+            <ScrollView Margin="10" VerticalOptions="End" Grid.Row="2" >
+
+                <Label Text="{Binding LastCode}" Grid.Row="1" FontSize="Body" VerticalOptions="End" />
+
+            </ScrollView>
+
+        </Grid>
+
+    </Grid>
+    
 </ContentPage>
