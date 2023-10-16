@@ -8,7 +8,7 @@
 
     <Grid RowDefinitions="Auto,*">
 
-        <Grid ColumnDefinitions="Auto,*" Margin="10" Grid.Row="0">
+        <Grid ColumnDefinitions="Auto,*" Margin="10" Grid.Row="0" HorizontalOptions="Center">
 
             <Image x:Name="LogoC4PImage" Source="mobile_code_medium.png" Grid.Column="0" WidthRequest="100" HeightRequest="100" VerticalOptions="Center" />
 
