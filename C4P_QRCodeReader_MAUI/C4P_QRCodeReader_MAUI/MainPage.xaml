@@ -23,17 +23,14 @@
 
         </Grid>
 
-        <Grid RowDefinitions="300,Auto,*" Grid.Row="1">
+        <Grid RowDefinitions="*,Auto,*" Grid.Row="1">
 
             <camera:CameraView 
                 x:Name="CameraView" 
                 Grid.Row="0"
+                Margin="30,30,30,0"               
                 Loaded="CameraView_Loaded" 
                 BarcodeDetected="CameraView_BarcodeDetected" 
-                HeightRequest="250" 
-                WidthRequest="250" 
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
                 ZoomFactor="{Binding Source={x:Reference ZoomSlider}, Path=Value}">
 
                 <camera:CameraView.GestureRecognizers>
