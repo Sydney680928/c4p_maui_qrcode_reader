@@ -74,7 +74,9 @@ namespace C4P_QRCodeReader_MAUI
                 {
                     LastCode = r.Text;
                     Debug.WriteLine($"[CAMERA VIEW] - {r.Text}");
+#if !WINDOWS
                     Vibration.Vibrate();
+#endif
                 }
                 else
                 {
