@@ -1,5 +1,5 @@
 # .NET MAUI QR Code Reader
 QR Code reader exemple for .NET MAUI from Coding 4 Phone blog.
 
-https://www.coding4phone.com
+https://www.coding4phone.com/?p=137
 
