@@ -7,7 +7,9 @@ namespace C4P_QRCodeReader_MAUI
     public partial class MainPage : ContentPage
     {
         private string _LastCode;
-       
+        private double _CurrentScale = 1;
+        private double _StartScale = 1;
+
         public string LastCode
         {
             get => _LastCode;
@@ -107,6 +109,21 @@ namespace C4P_QRCodeReader_MAUI
             catch (Exception ex)
             {
                 // An unexpected error occurred. No browser may be installed on the device.
+            }
+        }
+
+        private void CameraViewPinchGesture_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+        {
+            if (e.Status == GestureStatus.Started)
+            {
+                _StartScale = CameraView.ZoomFactor;
+            }
+            else if (e.Status == GestureStatus.Running)
+            {
+                _CurrentScale += (e.Scale - 1) * _StartScale;
+                _CurrentScale = Math.Max(1, _CurrentScale);
+
+                if (_CurrentScale >= ZoomSlider.Minimum && _CurrentScale <= ZoomSlider.Maximum) ZoomSlider.Value = _CurrentScale;
             }
         }
     }

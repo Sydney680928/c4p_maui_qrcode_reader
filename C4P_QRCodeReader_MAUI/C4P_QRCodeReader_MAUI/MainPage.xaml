@@ -23,7 +23,7 @@
 
         </Grid>
 
-        <Grid RowDefinitions="*,Auto,*" Grid.Row="1">
+        <Grid RowDefinitions="*,Auto,Auto,*" Grid.Row="1">
 
             <camera:CameraView 
                 x:Name="CameraView" 
@@ -35,6 +35,7 @@
 
                 <camera:CameraView.GestureRecognizers>
                     <TapGestureRecognizer x:Name="CameraViewTapGesture" Tapped="CameraViewTapGesture_Tapped" />
+                    <PinchGestureRecognizer x:Name="CameraViewPinchGesture" PinchUpdated="CameraViewPinchGesture_PinchUpdated" />
                 </camera:CameraView.GestureRecognizers>
 
             </camera:CameraView>
@@ -51,7 +52,9 @@
 
             </Grid>
 
-            <ScrollView Margin="10" VerticalOptions="End" Grid.Row="2" >
+            <Label Grid.Row="2" Text="Use Pinch Gesture to adjust zoom factor like with the slider." Margin="10,0,10,0" HorizontalOptions="Center" />
+
+            <ScrollView Margin="10" VerticalOptions="End" Grid.Row="3" >
 
                 <Label Text="{Binding LastCode}" Grid.Row="1" FontSize="Body" VerticalOptions="End" />
 
